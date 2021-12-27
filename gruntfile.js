@@ -43,6 +43,7 @@ module.exports = function(grunt) {
           // enable source map for browserify
           debug: true,
           standalone: 'ExcelJS',
+          fullPaths: true,
         },
       },
       bare: {
