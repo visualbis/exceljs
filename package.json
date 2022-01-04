@@ -95,13 +95,6 @@
     "pageSetup"
   ],
   "dependencies": {
-    "archiver": "^5.0.0",
-    "dayjs": "^1.8.34",
-    "fast-csv": "^4.3.1",
-    "readable-stream": "^3.6.0",
-    "saxes": "^5.0.1",
-    "tmp": "^0.2.0",
-    "unzipper": "^0.10.11",
     "uuid": "^8.3.0",
     "uzip": "^0.20201231.0"
   },
