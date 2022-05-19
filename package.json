@@ -1,6 +1,6 @@
 {
   "name": "@lumel/exceljs",
-  "version": "4.3.0-alpha1",
+  "version": "4.3.0-alpha5",
   "description": "Excel Workbook Manager - Read and Write xlsx and csv Files.",
   "license": "MIT",
   "author": {
@@ -53,6 +53,7 @@
     "benchmark": "node --expose-gc benchmark",
     "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
     "build": "grunt build",
+    "publishPackage": "npm publish --tag ibcs-cf",
     "install-build": "npm install && grunt build",
     "preversion": "npm run clean && npm run build && npm run test:version",
     "postversion": "git push --no-verify && git push --tags --no-verify"
