@@ -1,0 +1,60 @@
+version: 2.1
+defaults: &defaults
+  executor: node14
+executors:
+  node14:
+    docker:
+        - image: circleci/node:14-browsers
+commands:
+    npmbuild: 
+        description: "NPM install any visual editor based on path" 
+        steps:
+            - run:
+                  ## echo 'export buildNumber=$(date +"%y%m%d%H%M")' >> $BASH_ENV
+                  name: 'Avoid CI build'
+                  command: |
+                      echo $CIRCLE_SHA1
+                      echo $CIRCLE_PROJECT_USERNAME
+                      git log --format=oneline -n 1 $CIRCLE_SHA1 | tee commitmsg            
+                      if grep -q publish commitmsg; then
+                          echo "publish" 
+                      else
+                          circleci-agent step halt
+                      fi
+            - run:
+                  name: 'Update NPM auth token'
+                  command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" | tee .npmrc
+
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "package.json" }}
+
+            - run:
+                  name: install-npm-packages
+                  command: npm install
+
+            - save_cache:
+                  key: dependency-cache-{{ checksum "package.json" }}
+                  paths:
+                      - ./node_modules
+            - run:
+                  name: 'Build'
+                  command: npm run build
+
+            - run:
+                  name: 'Publish'
+                  command: npm publish
+jobs:
+  appbuild:
+        <<: *defaults
+        steps:
+        - checkout
+        - npmbuild       
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+        - appbuild:
+            filters:
+              branches:
+                only:
+                  - main
