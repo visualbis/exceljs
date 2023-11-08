@@ -10,18 +10,6 @@ commands:
         description: "NPM install any visual editor based on path" 
         steps:
             - run:
-                  ## echo 'export buildNumber=$(date +"%y%m%d%H%M")' >> $BASH_ENV
-                  name: 'Avoid CI build'
-                  command: |
-                      echo $CIRCLE_SHA1
-                      echo $CIRCLE_PROJECT_USERNAME
-                      git log --format=oneline -n 1 $CIRCLE_SHA1 | tee commitmsg            
-                      if grep -q publish commitmsg; then
-                          echo "publish" 
-                      else
-                          circleci-agent step halt
-                      fi
-            - run:
                   name: 'Update NPM auth token'
                   command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" | tee .npmrc
 
