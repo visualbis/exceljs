@@ -1,6 +1,6 @@
 {
   "name": "@lumel/exceljs",
-  "version": "4.3.0-alpha15",
+  "version": "4.3.0-alpha16",
   "description": "Excel Workbook Manager - Read and Write xlsx and csv Files.",
   "license": "MIT",
   "author": {
